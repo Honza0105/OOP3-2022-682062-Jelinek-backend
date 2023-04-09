@@ -94,6 +94,19 @@ public class WordSet{
         return stringSet.contains(wordToCheck);
     }
 
+    public boolean isSentence(String sentenceToCheck) {
+        String[] individualWords = sentenceToCheck.split(" ");
+        long total = individualWords.length;
+        long exist = 0;
+        for (String word: individualWords
+             ) {
+            if (isWord(word)){
+                exist++;
+            }
+        }
+        return (double) exist / total > 0.95;
+    }
+
     public static void main(String[] args) {
         WordSet wordSet = getWordSet();
         System.out.println(wordSet.stringSet.size());
