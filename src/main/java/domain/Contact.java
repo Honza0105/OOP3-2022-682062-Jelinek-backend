@@ -1,9 +1,11 @@
 package domain;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Contact implements Serializable, Comparable<Contact> {
+    @Serial
     private static final long serialVersionUID = 5615140951263062343L;
     private String firstName;
     private String middleName;

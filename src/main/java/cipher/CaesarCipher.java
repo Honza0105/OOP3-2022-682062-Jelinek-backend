@@ -29,8 +29,12 @@ public class CaesarCipher implements ICipher {
             char ch = message.charAt(i);
 
             if (Character.isLetter(ch)) {
-                char shifted = (char) (((int) ch + shift - 65) % 26 + 65);
-                result.append(shifted);
+                if (Character.isLowerCase(ch)) {
+                    char shifted = (char) (((int) ch + shift - 97) % 26 + 97);
+                    result.append(shifted);}
+                else {
+                    char shifted = (char) (((int) ch + shift - 65) % 26 + 65);
+                    result.append(shifted);}
             }
             else {
                 result.append(ch);
