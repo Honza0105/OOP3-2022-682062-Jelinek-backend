@@ -48,8 +48,13 @@ public class CaesarCipher implements ICipher {
         for (int i = 0; i < encrypted.length(); i++) {
             char ch = encrypted.charAt(i);
             if (Character.isLetter(ch)) {
+                if (Character.isLowerCase(ch)){
+                    char shifted = (char) (((int) ch - shift - 97 + 26) % 26 + 97);
+                    result.append(shifted);
+                }
+                else {
                 char shifted = (char) (((int) ch - shift - 65 + 26) % 26 + 65);
-                result.append(shifted);
+                result.append(shifted);}
             }
             else {
                 result.append(ch);

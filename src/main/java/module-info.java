@@ -5,6 +5,7 @@ module domain{
     exports conf;
     exports cipher;
     exports domain.util;
+    exports testing;
 
 
 }
