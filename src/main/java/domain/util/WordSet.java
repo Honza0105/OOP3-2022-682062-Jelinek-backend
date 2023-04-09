@@ -109,7 +109,9 @@ public class WordSet{
 
     public static void main(String[] args) {
         WordSet wordSet = getWordSet();
-        System.out.println(wordSet.stringSet.size());
-        System.out.println(wordSet.processedWords);
+//        System.out.println( wordSet.isWord(""));
+//        System.out.println(wordSet.stringSet.size());
+//        System.out.println(wordSet.processedWords);
+       ;
     }
 }

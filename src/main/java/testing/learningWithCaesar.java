@@ -6,8 +6,10 @@ import java.util.Arrays;
 
 public class learningWithCaesar {
     public static void main(String[] args) {
-        CaesarCipher cipher = new CaesarCipher(2);
-        String cipherEncrypted = cipher.encrypt("This is my test, well");
+        CaesarCipher cipher = new CaesarCipher(3);
+        String cipherEncrypted = cipher.encrypt("Já jsem.");
+        System.out.println(cipherEncrypted);
+
 
         CaesarCipher decryptor = new CaesarCipher();
 //

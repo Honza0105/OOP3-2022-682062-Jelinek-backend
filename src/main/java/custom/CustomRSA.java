@@ -67,4 +67,8 @@ public class CustomRSA {
         BigInteger dec = enc.modPow(key.getE(), key.getN());
         return dec;
     }
+
+//    public static BigInteger encypt(PublicKey key, String message){
+//
+//    }
 }
