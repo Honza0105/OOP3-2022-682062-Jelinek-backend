@@ -1,26 +1,26 @@
 package domain.util;
 
+import conf.Settings;
+
 import java.io.*;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class WordSet{
     private static WordSet instance = null;
     private final Set<String> stringSet = new HashSet<>();
-    private int processedWords;
 
     private WordSet() {
-        String source = "src/main/resources/words.txt";
+        String source = Settings.WORDS_FILE;
         File file = new File(source);
-        System.out.println(file.getAbsoluteFile());
         if (file.exists()){
-            System.out.println("hello");
-            readWordSet("src/main/resources/words.txt");
+            readWordSet(Settings.WORDS_FILE);
             System.out.println(stringSet.size());
         }
         else {
-            createWordSet("/Users/janjelinek/Library/CloudStorage/OneDrive-HogeschoolInholland/Inholland/AM2/Term 3/OOP 3/Project Gotenberg");
+            createWordSet(Settings.WORDS_DIR);
         }
     }
 
@@ -41,9 +41,9 @@ public class WordSet{
         System.out.println(folder);
 
         File[] files = folder.listFiles();
-        int totalFiles = files.length;
+        int totalFiles = Objects.requireNonNull(files).length;
         int processedFiles = 0;
-        processedWords = 0;
+        int processedWords = 0;
 
         for (File file : files) {
             if (file.isFile()) { // process only files, not directories
@@ -65,7 +65,7 @@ public class WordSet{
                 }
             }
         }
-        saveToFile("src/main/resources/words.txt");
+        saveToFile(Settings.WORDS_FILE);
     }
 
     public static WordSet getWordSet() {
@@ -109,9 +109,6 @@ public class WordSet{
 
     public static void main(String[] args) {
         WordSet wordSet = getWordSet();
-//        System.out.println( wordSet.isWord(""));
-//        System.out.println(wordSet.stringSet.size());
-//        System.out.println(wordSet.processedWords);
-       ;
+
     }
 }

@@ -2,8 +2,6 @@ package cipher;
 
 import domain.util.WordSet;
 
-import java.util.Objects;
-
 public class CaesarCipher implements ICipher {
     private int shift;
 
@@ -70,7 +68,7 @@ public class CaesarCipher implements ICipher {
     /**
      * This class will run over all 32 combinations and try to match them to the wordset.
      * @param message Encrypted message
-     * @return
+     * @return Decrypted message
      */
     public synchronized String decryptMessage(String message){
         WordSet wordSet = WordSet.getWordSet();

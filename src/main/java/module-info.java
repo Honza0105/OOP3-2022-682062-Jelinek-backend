@@ -1,11 +1,11 @@
 module domain{
     requires rings;
-    exports domain;
-    exports custom;
-    exports conf;
+    requires javafx.base;
+    requires commons.email;
+    requires javax.mail;
+    requires org.apache.commons.lang3;
+    requires org.bouncycastle.provider;
+
+
     exports cipher;
-    exports domain.util;
-    exports testing;
-
-
 }

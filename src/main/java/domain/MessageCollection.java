@@ -1,24 +1,25 @@
 package domain;
 
+import domain.Contact;
+import domain.User;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-/**
- * This is a class with only one instance.
- * It behaves like a Sorted Map with as its
- * KEY!!!!
- * the combination of a user (the To), a Contact (the From) and a LocalDateTime (received.)
- * Make sure access to the data stored in this object stays consistent in a multithreaded situation!
- */
-
 public class MessageCollection {
     private static volatile MessageCollection instance = null;
-    private SortedMap<MessageKey, Message> messageMap = new TreeMap<>();
+    private final SortedMap<MessageKey, Message> messageMap = new TreeMap<>();
 
     private MessageCollection() {
         // Private constructor to prevent instantiation from other classes
+    }
+
+    public Collection<Message> getAllMessages() {
+        synchronized (messageMap) {
+            return messageMap.values();
+        }
     }
 
     public static MessageCollection getInstance() {
@@ -32,12 +33,20 @@ public class MessageCollection {
         return instance;
     }
 
-    public void addMessage(User to, Contact from, LocalDateTime received, Message message) {
-        MessageKey key = new MessageKey(to, from, received);
+    public void addMessage(Message message) {
+        MessageKey key = new MessageKey( message.getToAsUser(), message.getFrom(), message.getDateTime());
         synchronized (messageMap) {
             messageMap.put(key, message);
         }
     }
+
+    public void removeMessage(Message message) {
+        synchronized (messageMap) {
+            MessageKey key = new MessageKey(message.getToAsUser(), message.getFrom(), message.getDateTime());
+            messageMap.remove(key);
+        }
+    }
+
 
     public Message getMessage(User to, Contact from, LocalDateTime received) {
         MessageKey key = new MessageKey(to, from, received);
@@ -47,11 +56,11 @@ public class MessageCollection {
     }
 
     // Inner class representing the key used in the Sorted Map
-    // Comparable because it is required by treemap
+    // Comparable because it is required by TreeMap
     private static class MessageKey implements Comparable<MessageKey> {
-        private User to;
-        private Contact from;
-        private LocalDateTime received;
+        private final User to;
+        private final Contact from;
+        private final LocalDateTime received;
 
         public MessageKey(User to, Contact from, LocalDateTime received) {
             this.to = to;

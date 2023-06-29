@@ -20,6 +20,10 @@ public class User extends Contact {
         this.password = password;
     }
 
+    public User(String emailAddress) {
+        super(emailAddress);
+    }
+
     public User(String firstName, String middleName, String familyName, String emailAddress, String username) {
         this(firstName, middleName, familyName, username, emailAddress, null);
     }

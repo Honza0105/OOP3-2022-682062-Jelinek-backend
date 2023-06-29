@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.security.PublicKey;
 import java.time.LocalDateTime;
 
 import cipher.ICipher;
@@ -9,10 +10,14 @@ public class Message implements Serializable, Comparable<Message> {
     private static final long serialVersionUID = 6526982049872068590L;
     private Contact from;
     private Contact to;
-    private final LocalDateTime dateTime;
-    private final String subject;
+    private LocalDateTime dateTime;
+    private  String subject;
     private String content;
     private ICipher key = null;
+
+    private PublicKey publicKey;
+
+    private String cracked;
 
     public Message(Contact from, Contact to, LocalDateTime dateTime, String subject, String content) {
         super();
@@ -21,10 +26,20 @@ public class Message implements Serializable, Comparable<Message> {
         this.dateTime = dateTime;
         this.content = content;
         this.subject = subject;
+        this.cracked = "No";
     }
+
+    public Message(){
+        super();
+    }
+
 
     public Contact getFrom() {
         return from;
+    }
+
+    public String getFromString() {
+        return from.getEmailAddress();
     }
 
     public void setFrom(Contact from) {
@@ -33,6 +48,10 @@ public class Message implements Serializable, Comparable<Message> {
 
     public Contact getTo() {
         return to;
+    }
+
+    public String getToString() {
+        return to.getEmailAddress();
     }
 
     public void setTo(Contact to) {
@@ -101,15 +120,32 @@ public class Message implements Serializable, Comparable<Message> {
         } else if (!dateTime.equals(other.dateTime))
             return false;
         if (from == null) {
-            if (other.from != null)
-                return false;
-        } else if (!from.equals(other.from))
-            return false;
-        return true;
+            return other.from == null;
+        } else return from.equals(other.from);
+    }
+
+    public String getCracked() {
+        return cracked;
+    }
+
+    public void setCracked(String cracked) {
+        this.cracked = cracked;
     }
 
     @Override
     public String toString() {
         return "Email from " + from.getEmailAddress() + " to " + to.getEmailAddress() + " sent on "+ dateTime;
+    }
+
+    public PublicKey getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(PublicKey publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    public User getToAsUser() {
+        return new User(to.toString());
     }
 }
